@@ -1,0 +1,56 @@
+name: Note0 iOS CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: macos-15
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: ios
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        run: xcodegen generate
+
+      - name: Export generated Xcode project
+        uses: actions/upload-artifact@v4
+        with:
+          name: Note0-xcodeproj
+          path: ios/Note0.xcodeproj
+          if-no-files-found: error
+
+      - name: Build and test
+        run: |
+          set -o pipefail
+          simulator_id="$(xcrun simctl list devices available --json | python3 -c 'import json, sys; devices=json.load(sys.stdin)["devices"]; print(next(device["udid"] for runtime in devices.values() for device in runtime if device["isAvailable"] and device["name"].startswith("iPad")))')"
+          xcodebuild test \
+            -project Note0.xcodeproj \
+            -scheme Note0 \
+            -configuration Debug \
+            -destination "platform=iOS Simulator,id=$simulator_id" \
+            -derivedDataPath .derived-data \
+            -resultBundlePath TestResults.xcresult \
+            CODE_SIGNING_ALLOWED=NO \
+            | xcpretty
+
+      - name: Export test diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Note0-test-diagnostics
+          path: ios/TestResults.xcresult
+          if-no-files-found: warn

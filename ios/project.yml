@@ -1,0 +1,49 @@
+name: Note0
+
+options:
+  bundleIdPrefix: com.dim0
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.10"
+    DEVELOPMENT_TEAM: N9SR79J574
+
+targets:
+  Note0:
+    type: application
+    platform: iOS
+    sources:
+      - path: ../Note0
+    settings:
+      base:
+        # Reuses the existing App Store Connect record and provisioning of the
+        # former canvas app, so TestFlight builds replace it in place.
+        PRODUCT_BUNDLE_IDENTIFIER: com.dim0.canvas
+        PRODUCT_MODULE_NAME: Note0
+        TARGETED_DEVICE_FAMILY: "2"
+        SUPPORTS_MACCATALYST: NO
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: Info.plist
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        CODE_SIGN_STYLE: Automatic
+        CURRENT_PROJECT_VERSION: "36"
+        MARKETING_VERSION: "2.0.0"
+    scheme:
+      testTargets:
+        - Note0Tests
+
+  Note0Tests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: ../Note0Tests
+    dependencies:
+      - target: Note0
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.dim0.canvas.tests
+        GENERATE_INFOPLIST_FILE: YES
+        CODE_SIGNING_ALLOWED: NO

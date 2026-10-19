@@ -1,0 +1,8 @@
+node_modules/
+builds/
+ios/Pods/
+ios/build/
+ios/.derived-data/
+ios/TestResults.xcresult/
+ios/*.xcworkspace/
+.DS_Store

@@ -1,0 +1,7 @@
+/node_modules/
+/builds/
+/ios/Pods/
+/ios/build/
+/ios/.derived-data/
+/ios/TestResults.xcresult/
+/.github/

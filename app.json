@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Note0",
+    "slug": "max",
+    "owner": "maxdus-team",
+    "version": "2.0.0",
+    "orientation": "default",
+    "ios": {
+      "bundleIdentifier": "com.dim0.canvas",
+      "buildNumber": "36",
+      "supportsTablet": true,
+      "infoPlist": {
+        "CFBundleDisplayName": "note0",
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ced6abe3-4550-449b-b380-3f54dd7a613a"
+      }
+    }
+  }
+}

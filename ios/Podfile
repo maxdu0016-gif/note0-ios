@@ -1,0 +1,7 @@
+platform :ios, '17.0'
+
+install! 'cocoapods', :deterministic_uuids => false
+project 'Note0.xcodeproj'
+
+target 'Note0' do
+end
